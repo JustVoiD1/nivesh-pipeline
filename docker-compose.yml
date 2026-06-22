@@ -1,0 +1,60 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: nivesh-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-nivesh_pipeline}
+      POSTGRES_USER: ${POSTGRES_USER:-nivesh}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-nivesh_secret_2026}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-nivesh}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  pipeline:
+    build:
+      context: ./pipeline
+      dockerfile: Dockerfile
+    container_name: nivesh-pipeline
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-nivesh}:${POSTGRES_PASSWORD:-nivesh_secret_2026}@postgres:5432/${POSTGRES_DB:-nivesh_pipeline}
+      PIPELINE_ENV: ${PIPELINE_ENV:-development}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      CONFIDENCE_THRESHOLD_AUTO: ${CONFIDENCE_THRESHOLD_AUTO:-0.85}
+      CONFIDENCE_THRESHOLD_ACCEPT: ${CONFIDENCE_THRESHOLD_ACCEPT:-0.70}
+      CONFIDENCE_THRESHOLD_QUARANTINE: ${CONFIDENCE_THRESHOLD_QUARANTINE:-0.50}
+      DOWNLOAD_DIR: /app/downloads
+    ports:
+      - "${PIPELINE_PORT:-8000}:8000"
+    volumes:
+      - ./pipeline:/app
+      - pipeline_downloads:/app/downloads
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=http://localhost:${PIPELINE_PORT:-8000}
+    container_name: nivesh-dashboard
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:${PIPELINE_PORT:-8000}
+      API_URL: http://pipeline:8000
+    ports:
+      - "${DASHBOARD_PORT:-3000}:3000"
+    depends_on:
+      - pipeline
+
+volumes:
+  postgres_data:
+  pipeline_downloads:

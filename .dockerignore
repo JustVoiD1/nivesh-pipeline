@@ -1,0 +1,36 @@
+# Git
+.git
+.gitignore
+
+# Docker
+.dockerignore
+Dockerfile*
+docker-compose*
+
+# Python and Environment
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.venv/
+env/
+
+# Environment variables and Secrets (Include nested directories)
+**/.env
+**/.env.*
+.env*
+!.env.example
+
+# IDEs
+.vscode/
+.idea/
+
+# Local data, logs and temp files
+downloads/
+**/downloads/
+*.db
+*.sqlite
+*.log
+output.txt
+test_scraper.py

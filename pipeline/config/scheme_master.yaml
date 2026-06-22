@@ -1,0 +1,118 @@
+# =============================================================================
+# Scheme Master List - Known AMC scheme names for fuzzy matching
+# Used during classification to validate and match extracted scheme names
+# =============================================================================
+amcs:
+  sbi_mf:
+    name: "SBI Mutual Fund"
+    aliases: ["SBI MF", "SBI Mutual Fund", "SBIMF", "SBI Funds Management"]
+    schemes:
+      - name: "SBI Blue Chip Fund"
+        category: "equity"
+        aliases: ["SBI Bluechip", "SBI Blue Chip"]
+      - name: "SBI Equity Hybrid Fund"
+        category: "hybrid"
+        aliases: ["SBI Equity Hybrid"]
+      - name: "SBI Magnum Medium Duration Fund"
+        category: "debt"
+        aliases: ["SBI Medium Duration", "SBI Magnum Medium"]
+      - name: "SBI Focused Equity Fund"
+        category: "equity"
+        aliases: ["SBI Focused"]
+      - name: "SBI Large & Midcap Fund"
+        category: "equity"
+        aliases: ["SBI Large and Midcap", "SBI Large Midcap"]
+      - name: "SBI Liquid Fund"
+        category: "debt"
+        aliases: ["SBI Liquid"]
+      - name: "SBI Small Cap Fund"
+        category: "equity"
+        aliases: ["SBI Smallcap", "SBI Small Cap"]
+      - name: "SBI Flexi Cap Fund"
+        category: "equity"
+        aliases: ["SBI Flexicap"]
+
+  hdfc_mf:
+    name: "HDFC Mutual Fund"
+    aliases: ["HDFC MF", "HDFC Mutual Fund", "HDFC Asset Management", "HDFC AMC"]
+    schemes:
+      - name: "HDFC Flexi Cap Fund"
+        category: "equity"
+        aliases: ["HDFC Flexicap", "HDFC Flexi Cap"]
+      - name: "HDFC Mid-Cap Opportunities Fund"
+        category: "equity"
+        aliases: ["HDFC Midcap Opportunities", "HDFC Mid Cap"]
+      - name: "HDFC Top 100 Fund"
+        category: "equity"
+        aliases: ["HDFC Top100", "HDFC Top 100"]
+      - name: "HDFC Balanced Advantage Fund"
+        category: "hybrid"
+        aliases: ["HDFC BAF", "HDFC Balanced"]
+      - name: "HDFC Short Term Debt Fund"
+        category: "debt"
+        aliases: ["HDFC Short Term", "HDFC STD"]
+      - name: "HDFC Liquid Fund"
+        category: "debt"
+        aliases: ["HDFC Liquid"]
+      - name: "HDFC Small Cap Fund"
+        category: "equity"
+        aliases: ["HDFC Smallcap", "HDFC Small Cap"]
+ 
+  nippon_india:
+    name: "Nippon India Mutual Fund"
+    aliases: ["Nippon India MF", "Nippon MF", "Nippon India", "NIMF", "Reliance Mutual Fund"]
+    schemes:
+      - name: "Nippon India Small Cap Fund"
+        category: "equity"
+        aliases: ["Nippon Small Cap", "Nippon India Smallcap", "NIMF Small Cap"]
+      - name: "Nippon India Growth Fund"
+        category: "equity"
+        aliases: ["Nippon Growth Fund", "Nippon Growth"]
+      - name: "Nippon India Multi Cap Fund"
+        category: "equity"
+        aliases: ["Nippon Multi Cap", "NIMF Multi Cap"]
+      - name: "Nippon India Liquid Fund"
+        category: "debt"
+        aliases: ["Nippon Liquid", "NIMF Liquid"]
+      - name: "Nippon India Arbitrage Fund"
+        category: "hybrid"
+        aliases: ["Nippon Arbitrage"]
+
+# Scheme category taxonomy (SEBI classification)
+categories:
+  equity:
+    subcategories: ["large_cap", "mid_cap", "small_cap", "multi_cap", "flexi_cap", "large_mid_cap", "focused", "elss", "value", "contra", "dividend_yield", "sectoral", "thematic"]
+  debt:
+    subcategories: ["overnight", "liquid", "ultra_short", "low_duration", "money_market", "short_duration", "medium_duration", "medium_long", "long_duration", "dynamic_bond", "corporate_bond", "credit_risk", "banking_psu", "gilt", "gilt_10yr", "floater"]
+  hybrid:
+    subcategories: ["conservative", "balanced", "aggressive", "dynamic_asset_allocation", "multi_asset", "arbitrage", "equity_savings"]
+  solution_oriented:
+    subcategories: ["retirement", "children"]
+  other:
+    subcategories: ["index", "etf", "fof"]
+
+# Month name mappings for classification
+month_mappings:
+  january: 1
+  february: 2
+  march: 3
+  april: 4
+  may: 5
+  june: 6
+  july: 7
+  august: 8
+  september: 9
+  october: 10
+  november: 11
+  december: 12
+  jan: 1
+  feb: 2
+  mar: 3
+  apr: 4
+  jun: 6
+  jul: 7
+  aug: 8
+  sep: 9
+  oct: 10
+  nov: 11
+  dec: 12

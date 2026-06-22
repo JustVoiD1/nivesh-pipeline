@@ -1,0 +1,56 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# C extensions
+*.so
+
+# Distribution / packaging
+bin/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+venv/
+.venv/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# Environment and Secrets (Include nested directories)
+**/.env
+**/.env.*
+.env*
+!.env.example
+
+# IDEs and editors
+.icanhaztemplates
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Database and logs
+*.db
+*.sqlite
+*.log
+output.txt
+test_scraper.py

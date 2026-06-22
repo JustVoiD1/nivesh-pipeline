@@ -1,0 +1,82 @@
+# =============================================================================
+# AMC Source Configuration
+# URLs and types stored as data, not code. Each source defines how to
+# discover, navigate, and download documents from an AMC website.
+# =============================================================================
+sources:
+  - source_key: sbi_mf
+    amc_name: "SBI Mutual Fund"
+    base_url: "https://www.sbimf.com/en-us/portfolios"
+    page_type: "JS_SPA"
+    discovery:
+      strategy: "network_intercept"
+      api_patterns:
+        - "/api/am/binary/*"
+        - "/api/*/portfolio*"
+        - "/ajaxcall/CMS/GetSchemaPortfolioSheets*"
+      navigation_steps:
+        - action: "wait_for_load"
+          timeout: 10000
+        - action: "wait" 
+          duration: 2000
+      download_selectors:
+        - "a[href*='.xlsx']"
+        - "a[href*='.xls']"
+        - "a[href*='.pdf']"
+        - "a[download]"
+        - "button:has-text('Download')"
+    anti_bot:
+      use_stealth: true
+      random_delay_ms: [2000, 5000]
+      user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+    file_types: ["xlsx", "xls", "pdf"]
+    schedule_cron: "0 6 1-10 * *"
+    enabled: true
+
+  - source_key: hdfc_mf
+    amc_name: "HDFC Mutual Fund"
+    base_url: "https://www.hdfcfund.com/statutory-disclosure/portfolio/monthly-portfolio"
+    page_type: "JS_SPA"
+    discovery:
+      strategy: "network_intercept"
+      navigation_steps:
+        - action: "wait_for_load"
+          timeout: 15000
+        - action: "wait_for_selector"
+          selector: "a[href*='.xlsx'], a[href*='.xls'], a[href*='.pdf'], a[href*='download']"
+          timeout: 10000
+      download_selectors:
+        - "a[href*='.xlsx']"
+        - "a[href*='.xls']"
+        - "a[href*='.pdf']"
+        - "a[href*='portfolio']"
+        - "a[href*='download']"
+    anti_bot:
+      use_stealth: true
+      random_delay_ms: [1500, 4000]
+    file_types: ["xlsx", "xls", "pdf"]
+    schedule_cron: "0 6 1-10 * *"
+    enabled: true
+
+  - source_key: nippon_india
+    amc_name: "Nippon India Mutual Fund"
+    base_url: "https://mf.nipponindiaim.com/investor-service/downloads/factsheet-portfolio-and-other-disclosures"
+    page_type: "STATIC"
+    discovery:
+      strategy: "link_extraction"
+      navigation_steps:
+        - action: "wait_for_load"
+          timeout: 15000
+        - action: "wait_for_selector"
+          selector: "a[href*='.xlsx'], a[href*='.xls'], a[href*='.pdf'], a[href*='download']"
+          timeout: 10000
+      download_selectors:
+        - "a[href*='.pdf']"
+        - "a[href*='.xlsx']"
+        - "a[href*='.xls']"
+    anti_bot:
+      use_stealth: true
+      random_delay_ms: [2000, 5000]
+    file_types: ["pdf", "xls", "xlsx"]
+    schedule_cron: "0 6 1-10 * *"
+    enabled: false
